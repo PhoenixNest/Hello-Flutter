@@ -16,7 +16,7 @@ main(List<String> args) {
   // });
 
   // 匿名函数(箭头写法)
-  // array.forEach((element) => print(element));
+  array.forEach((element) => print(element));
 }
 
 void printItem(value) {
