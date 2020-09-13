@@ -8,6 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:day01_helloworld/main.dart';
+import 'package:helloflutter/main.dart';
 
 void main() {}
