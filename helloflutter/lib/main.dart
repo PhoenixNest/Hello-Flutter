@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
         title: "Hello World",
         home: Scaffold(
           appBar: AppBar(
-            title: Text("Apple Dev Center"),
+            title: Text("Dev Center"),
           ),
           body: ContentWidget(),
         ));
