@@ -1,4 +1,4 @@
-# study01
+# day01_helloworld
 
 A new Flutter application.
 
