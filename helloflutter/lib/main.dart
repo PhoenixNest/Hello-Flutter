@@ -16,9 +16,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// 生命周期函数调用顺序：
+/// (1). Widget构造函数 ->
+/// (2). Widget - createState ->
+/// (3). WidgetState - 构造函数 ->
+/// (4). WidgetState - initState ->
+/// (5). WidgetState - didChangeDependencies ->
+/// (6). WidgetState - build ->
+/// (7). (如果对页面元素进行改变则会重新调用build方法) WidgetState - build ->
+
 class ContentWidget extends StatefulWidget {
+  ContentWidget() {
+    print("ContentWidget构造函数");
+  }
+
   @override
   State<StatefulWidget> createState() {
+    print("ContentWidget - createState");
     return ContentWidgetState();
   }
 }
@@ -26,44 +40,51 @@ class ContentWidget extends StatefulWidget {
 class ContentWidgetState extends State<ContentWidget> {
   int currentNum = 0;
 
+  ContentWidgetState() {
+    print("ContentWidgetState构造函数");
+  }
+
+  @override
+  void initState() {
+    // 父类种可能调用的方法
+    super.initState();
+
+    print("ContentWidgetState - initState");
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print("ContentWidgetState - didChangeDependencies");
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("ContentWidgetState - build");
+
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RaisedButton(
-                child: Text("+1"),
-                onPressed: () {
-                  print("Press");
-                  // 监听状态改变
-                  setState(() {
-                    currentNum++;
-                  });
-                },
-              ),
-              SizedBox(width: 10),
-              RaisedButton(
-                child: Text("-1"),
-                onPressed: () {
-                  print("Press");
-                  // 监听状态改变
-                  setState(() {
-                    currentNum--;
-                  });
-                },
-              ),
-            ],
+          RaisedButton(
+            child: Text("+1"),
+            onPressed: () {
+              setState(() {
+                currentNum++;
+              });
+            },
           ),
           Text(
-            "当前计数: $currentNum",
+            "Count: $currentNum",
             style: TextStyle(fontSize: 24),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(ContentWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("ContentWidgetState - didUpdateWidget");
   }
 }
