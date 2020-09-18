@@ -18,18 +18,17 @@ class MyApp extends StatelessWidget {
 class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return NetWorkImageDemo();
+    return CircleRecImageDemo();
   }
 }
 
+/// 本地图片
 class NetWorkImageDemo extends StatelessWidget {
   final String imageUrl =
       "https://www.apple.com/v/apple-events/home/h/images/overview/past-events/march-2019/hero_image__dcnw5e2nomye_small_2x.jpg";
 
   @override
   Widget build(BuildContext context) {
-    // return Image.asset("assets/images/wedding-3099197.jpg");
-
     return Center(
         child: Container(
             height: 360,
@@ -37,6 +36,49 @@ class NetWorkImageDemo extends StatelessWidget {
             child: Image.network(imageUrl,
                 // repeat: ImageRepeat.repeatY,
                 fit: BoxFit.cover)));
+  }
+}
+
+/// 网络图片
+class LocalImageDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Image.asset("assets/images/wedding-3099197.jpg"));
+  }
+}
+
+///圆角图片(可做头像)
+class CircleImageDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ClipOval(
+        child: Image.network(
+          "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
+          fit: BoxFit.cover,
+          width: 72,
+          height: 72,
+        ),
+      ),
+    );
+  }
+}
+
+///圆角矩形(可做头像)
+class CircleRecImageDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Image.network(
+          "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
+          fit: BoxFit.cover,
+          width: 72,
+          height: 72,
+        ),
+      ),
+    );
   }
 }
 
