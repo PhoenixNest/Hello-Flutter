@@ -18,239 +18,73 @@ class MyApp extends StatelessWidget {
 class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return TextFieldDemo();
+    return FormDemo();
   }
 }
 
-class TextFieldDemo extends StatefulWidget {
+class FormDemo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return TextFieldState();
+    return myFormState();
   }
 }
 
-/// 输入框
-class TextFieldState extends State<TextFieldDemo> {
-  //输入框监听，即Listener
-  final textEditingController = TextEditingController();
+///表单
+class myFormState extends State<FormDemo> {
+  String userName;
+  String passWord;
 
-  @override
-  void initState() {
-    super.initState();
-    textEditingController.text = "Default Value";
-
-    textEditingController.addListener(() {
-      print("监听到值的改变: ${textEditingController.text}");
-    });
-  }
+  //统一管理TextFormField中的状态，以便于接受输入内容并统一提交
+  GlobalKey<FormState> globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              icon: Icon(Icons.people),
-              hintText: "UserName",
-              labelText: "Please input your name",
-              border: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
-              ),
-              //背景颜色
-              // filled: true,
-              // fillColor: Colors.purple
+      child: Form(
+        key: globalKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  icon: Icon(Icons.people), labelText: "Input userName"),
+              onSaved: (v) {
+                this.userName = v;
+                print("userName onSave");
+              },
             ),
-            onChanged: (value) {
-              print("监听键盘输入: $value");
-            },
-            onSubmitted: (value) {
-              print("提交的值: $value");
-            },
-            //输入框监听，即Listener
-            controller: textEditingController,
-          ),
-        ],
+            TextFormField(
+              // 密文输入
+              obscureText: true,
+              decoration: InputDecoration(
+                  icon: Icon(Icons.lock), labelText: "Input passWord"),
+              onSaved: (v) {
+                this.passWord = v;
+                print("passWord onSave");
+              },
+            ),
+            SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              height: 36,
+              child: RaisedButton(
+                color: Colors.blue,
+                onPressed: () {
+                  print("onPress");
+                  //通过下述方法统一接受输入框的值
+                  globalKey.currentState.save();
+                  print("userName: $userName --- password: $passWord");
+                },
+                child: Text(
+                  "Register",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
-
-/// 本地图片
-// class NetWorkImageDemo extends StatelessWidget {
-//   final String imageUrl =
-//       "https://www.apple.com/v/apple-events/home/h/images/overview/past-events/march-2019/hero_image__dcnw5e2nomye_small_2x.jpg";
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//         child: Container(
-//             height: 360,
-//             width: 360,
-//             child: Image.network(imageUrl,
-//                 // repeat: ImageRepeat.repeatY,
-//                 fit: BoxFit.cover)));
-//   }
-// }
-
-/// 网络图片
-// class LocalImageDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(child: Image.asset("assets/images/wedding-3099197.jpg"));
-//   }
-// }
-
-///圆角图片(可做头像)
-// class CircleImageDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: ClipOval(
-//         child: Image.network(
-//           "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
-//           fit: BoxFit.cover,
-//           width: 72,
-//           height: 72,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-///圆角矩形(可做头像)
-// class CircleRecImageDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: ClipRRect(
-//         borderRadius: BorderRadius.circular(16),
-//         child: Image.network(
-//           "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
-//           fit: BoxFit.cover,
-//           width: 72,
-//           height: 72,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-/// Widget - CustomButtonDemo
-// class CustomButtonDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: RaisedButton(
-//         /// 圆角: RoundedRectangleBorder
-//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-//         color: Colors.blueAccent,
-//         child: Row(
-//           mainAxisSize: MainAxisSize.min,
-//           children: <Widget>[
-//             Icon(
-//               Icons.adb,
-//               color: Colors.white,
-//             ),
-//             SizedBox(width: 12),
-//             Text(
-//               "CustomRaisedButton",
-//               style: TextStyle(color: Colors.white),
-//             ),
-//           ],
-//         ),
-//         onPressed: () {
-//           print("CustomRaisedButton");
-//         },
-//       ),
-//     );
-//   }
-// }
-
-/// Widget - Button
-// class ButtonDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: <Widget>[
-//         RaisedButton(
-//           child: Text("RaisedButton"),
-//           onPressed: () {
-//             print("RaisedButton");
-//           },
-//         ),
-//         FlatButton(
-//           onPressed: () {
-//             print("FlatButton");
-//           },
-//           child: Text("FlatButton"),
-//         ),
-//         FloatingActionButton(
-//           child: Text("FloatingActionButton"),
-//           onPressed: () {
-//             print("FloatingActionButton");
-//           },
-//         ),
-//         OutlineButton(
-//           child: Text("OutlineButton"),
-//           onPressed: () {
-//             print("OutlineButton");
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-/// Widget - Text.RichText
-// class TextRichDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text.rich(
-//       TextSpan(children: [
-//         TextSpan(
-//             text: "Text1",
-//             style: TextStyle(
-//                 fontSize: 56,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.redAccent)),
-//         TextSpan(
-//             text: "Text2Text2",
-//             style: TextStyle(
-//                 fontSize: 28,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.green)),
-//         TextSpan(
-//             text: "Text3Text3Text3",
-//             style: TextStyle(
-//                 fontSize: 14, fontWeight: FontWeight.bold, color: Colors.blue)),
-//         TextSpan(
-//             text: "Text4Text4Text4Text4",
-//             style: TextStyle(
-//                 fontSize: 14,
-//                 fontWeight: FontWeight.bold,
-//                 color: Colors.orange))
-//       ]),
-//       textAlign: TextAlign.center,
-//     );
-//   }
-// }
-
-/// Widget - Text
-// class TextDemo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text(
-//       "Test Text \n\n Test Text, Test Text, Test Text, Test Text",
-//       style: TextStyle(fontSize: 24, color: Colors.orange),
-//       textAlign: TextAlign.center,
-//       // 最大显示行数: maxLines
-//       // maxLines: 2,
-//       // 超出部分显示方式: overflow
-//       // overflow: TextOverflow.ellipsis,
-//       // 缩放倍数: textScaleFactor
-//       // textScaleFactor: 2,
-//     );
-//   }
-// }
