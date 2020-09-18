@@ -18,69 +18,124 @@ class MyApp extends StatelessWidget {
 class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CircleRecImageDemo();
+    return TextFieldDemo();
+  }
+}
+
+class TextFieldDemo extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return TextFieldState();
+  }
+}
+
+/// 输入框
+class TextFieldState extends State<TextFieldDemo> {
+  //输入框监听，即Listener
+  final textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    textEditingController.text = "Default Value";
+
+    textEditingController.addListener(() {
+      print("监听到值的改变: ${textEditingController.text}");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.people),
+              hintText: "UserName",
+              labelText: "Please input your name",
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 2),
+              ),
+              //背景颜色
+              // filled: true,
+              // fillColor: Colors.purple
+            ),
+            onChanged: (value) {
+              print("监听键盘输入: $value");
+            },
+            onSubmitted: (value) {
+              print("提交的值: $value");
+            },
+            //输入框监听，即Listener
+            controller: textEditingController,
+          ),
+        ],
+      ),
+    );
   }
 }
 
 /// 本地图片
-class NetWorkImageDemo extends StatelessWidget {
-  final String imageUrl =
-      "https://www.apple.com/v/apple-events/home/h/images/overview/past-events/march-2019/hero_image__dcnw5e2nomye_small_2x.jpg";
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            height: 360,
-            width: 360,
-            child: Image.network(imageUrl,
-                // repeat: ImageRepeat.repeatY,
-                fit: BoxFit.cover)));
-  }
-}
+// class NetWorkImageDemo extends StatelessWidget {
+//   final String imageUrl =
+//       "https://www.apple.com/v/apple-events/home/h/images/overview/past-events/march-2019/hero_image__dcnw5e2nomye_small_2x.jpg";
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//         child: Container(
+//             height: 360,
+//             width: 360,
+//             child: Image.network(imageUrl,
+//                 // repeat: ImageRepeat.repeatY,
+//                 fit: BoxFit.cover)));
+//   }
+// }
 
 /// 网络图片
-class LocalImageDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Image.asset("assets/images/wedding-3099197.jpg"));
-  }
-}
+// class LocalImageDemo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(child: Image.asset("assets/images/wedding-3099197.jpg"));
+//   }
+// }
 
 ///圆角图片(可做头像)
-class CircleImageDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ClipOval(
-        child: Image.network(
-          "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
-          fit: BoxFit.cover,
-          width: 72,
-          height: 72,
-        ),
-      ),
-    );
-  }
-}
+// class CircleImageDemo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: ClipOval(
+//         child: Image.network(
+//           "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
+//           fit: BoxFit.cover,
+//           width: 72,
+//           height: 72,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 ///圆角矩形(可做头像)
-class CircleRecImageDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Image.network(
-          "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
-          fit: BoxFit.cover,
-          width: 72,
-          height: 72,
-        ),
-      ),
-    );
-  }
-}
+// class CircleRecImageDemo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(16),
+//         child: Image.network(
+//           "https://cdn.dribbble.com/users/10882/screenshots/5555770/c_1x.png",
+//           fit: BoxFit.cover,
+//           width: 72,
+//           height: 72,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 /// Widget - CustomButtonDemo
 // class CustomButtonDemo extends StatelessWidget {
