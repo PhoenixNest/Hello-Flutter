@@ -18,40 +18,58 @@ class MyApp extends StatelessWidget {
 class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomButtonDemo();
+    return NetWorkImageDemo();
+  }
+}
+
+class NetWorkImageDemo extends StatelessWidget {
+  final String imageUrl =
+      "https://www.apple.com/v/apple-events/home/h/images/overview/past-events/march-2019/hero_image__dcnw5e2nomye_small_2x.jpg";
+
+  @override
+  Widget build(BuildContext context) {
+    // return Image.asset("assets/images/wedding-3099197.jpg");
+
+    return Center(
+        child: Container(
+            height: 360,
+            width: 360,
+            child: Image.network(imageUrl,
+                // repeat: ImageRepeat.repeatY,
+                fit: BoxFit.cover)));
   }
 }
 
 /// Widget - CustomButtonDemo
-class CustomButtonDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: RaisedButton(
-        /// 圆角: RoundedRectangleBorder
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        color: Colors.blueAccent,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              Icons.adb,
-              color: Colors.white,
-            ),
-            SizedBox(width: 12),
-            Text(
-              "CustomRaisedButton",
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-        onPressed: () {
-          print("CustomRaisedButton");
-        },
-      ),
-    );
-  }
-}
+// class CustomButtonDemo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: RaisedButton(
+//         /// 圆角: RoundedRectangleBorder
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+//         color: Colors.blueAccent,
+//         child: Row(
+//           mainAxisSize: MainAxisSize.min,
+//           children: <Widget>[
+//             Icon(
+//               Icons.adb,
+//               color: Colors.white,
+//             ),
+//             SizedBox(width: 12),
+//             Text(
+//               "CustomRaisedButton",
+//               style: TextStyle(color: Colors.white),
+//             ),
+//           ],
+//         ),
+//         onPressed: () {
+//           print("CustomRaisedButton");
+//         },
+//       ),
+//     );
+//   }
+// }
 
 /// Widget - Button
 // class ButtonDemo extends StatelessWidget {
