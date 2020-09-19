@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Dev Center",
       theme: ThemeData(
-        primaryColor: Colors.deepPurpleAccent,
+        primaryColor: Colors.black,
         //下述两个属性可以取消按钮点击水波纹效果
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,

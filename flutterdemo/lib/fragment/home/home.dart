@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterdemo/api/http_config.dart';
-import 'package:flutterdemo/api/http_request.dart';
+import 'package:flutterdemo/api/home_request.dart';
+import 'package:flutterdemo/fragment/home/childViews/home_list_item.dart';
 import 'package:flutterdemo/models/home_model.dart';
 
 class Home extends StatelessWidget {
@@ -30,15 +30,9 @@ class _HomeContentState extends State<HomeContent> {
   void initState() {
     super.initState();
     //发送网络请求
-    HttpRequest.request(BASE_URL,
-        params: {"orientation": "all", "editors_choice": true}).then((value) {
-      List<Hits> hits = [];
-      var data = value.data["hits"];
-      for (var hit in data) hits.add(Hits.fromJson(hit));
-
-      setState(() {
-        this.hitsList = hits;
-      });
+    var list = HomeRequest.request();
+    setState(() {
+      this.hitsList = list;
     });
   }
 
@@ -48,13 +42,7 @@ class _HomeContentState extends State<HomeContent> {
       child: ListView.builder(
           itemCount: hitsList.length,
           itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                leading: Image.network(hitsList[index].userImageURL),
-                title: Text(hitsList[index].user),
-              ),
-            );
+            return HomeListItem(hitsList[index]);
           }),
     );
   }
