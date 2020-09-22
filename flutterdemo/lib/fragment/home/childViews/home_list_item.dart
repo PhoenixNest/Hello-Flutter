@@ -23,7 +23,7 @@ class HomeListItem extends StatelessWidget {
   }
 }
 
-class _CardLayout extends StatelessWidget{
+class _CardLayout extends StatelessWidget {
   final Hits items;
 
   _CardLayout(this.items);
@@ -34,17 +34,16 @@ class _CardLayout extends StatelessWidget{
       padding: EdgeInsets.all(8.0),
       child: ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.zero,
-            bottomLeft: Radius.zero,
-            bottomRight: Radius.circular(16.0)
-          ),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.zero,
+              bottomLeft: Radius.zero,
+              bottomRight: Radius.circular(16.0)),
           child: _CardLayoutItem(items)),
     );
   }
 }
 
-class _CardLayoutItem extends StatelessWidget{
+class _CardLayoutItem extends StatelessWidget {
   final Hits items;
 
   _CardLayoutItem(this.items);
@@ -56,28 +55,28 @@ class _CardLayoutItem extends StatelessWidget{
       children: <Widget>[
         Container(child: Image.network(items.webformatURL)),
         Positioned(
-          right: 16.0,
+            right: 16.0,
             bottom: 48.0,
-            child: Container(
-              height: 72.0,
-                width: 72.0,
-                child: ClipRRect(
-borderRadius: BorderRadius.circular(16.0),
-                    child: Image.network(items.userImageURL)))),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Image.network(
+                  items.userImageURL,
+                  height: 72.0,
+                ))),
         Positioned(
           right: 24.0,
           bottom: 16.0,
           child: Container(
-              child: Text(items.user,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 18.0,
-                    color: Colors.white
-                ),)),
+              child: Text(
+            items.user,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+                fontSize: 18.0,
+                color: Colors.white),
+          )),
         )
       ],
     );
   }
-
 }
