@@ -1,2 +1,2 @@
 # HelloFlutter
- Study
+ Basic Learning Project
