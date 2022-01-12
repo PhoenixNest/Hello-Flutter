@@ -1,2 +1,1 @@
-# HelloFlutter
- Basic Learning Project
+# Hello Flutter
